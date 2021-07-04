@@ -1,0 +1,29 @@
+quarkus:
+  http:
+    port: 4754
+  log:
+    console:
+      json:
+        pretty-print: true
+        date-format: "YYYY-MM-dd HH:mm:ss"
+        exception-output-type: "detailed-and-formatted"
+  # configure your datasource
+  datasource:
+    db-kind: postgresql
+    username: ajith
+    password: Aj!threddy428
+    reactive:
+      url: vertx-reactive:postgresql://localhost:5432/garrsolutions
+      max-size: 20
+  # drop and create the database at startup (use `update` to only update the schema)
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+    log:
+      sql: true
+
+"%dev":
+  quarkus:
+    log:
+      console:
+        json: false
