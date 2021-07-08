@@ -1,6 +1,7 @@
 package org.garrsolutions.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "stateId")
 public class State {
 
     @Id
@@ -27,7 +29,6 @@ public class State {
 
     @ManyToOne
     @JoinColumn(name = "nation_id", nullable = false)
-    @JsonIgnore
     private Nation nation;
 
     @OneToMany(mappedBy = "state", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)

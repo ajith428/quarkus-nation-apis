@@ -1,6 +1,7 @@
 package org.garrsolutions.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import lombok.*;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "districtId")
 public class District extends PanacheEntityBase {
 
     @Id
@@ -28,7 +30,6 @@ public class District extends PanacheEntityBase {
 
     @ManyToOne
     @JoinColumn(name = "state_id", nullable = false)
-    @JsonIgnore
     private State state;
 
     @OneToMany(mappedBy = "district", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)

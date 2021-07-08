@@ -1,5 +1,7 @@
 package org.garrsolutions.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import lombok.*;
 
@@ -16,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "nationId")
 public class Nation extends PanacheEntityBase {
 
     @Id
