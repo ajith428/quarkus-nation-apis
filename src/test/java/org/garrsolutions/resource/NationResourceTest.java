@@ -1,4 +1,4 @@
-package org.garrsolutions;
+package org.garrsolutions.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Disabled;
