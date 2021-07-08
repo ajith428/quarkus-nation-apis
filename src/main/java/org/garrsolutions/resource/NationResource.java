@@ -1,9 +1,8 @@
 package org.garrsolutions.resource;
 
-import io.quarkus.hibernate.reactive.panache.Panache;
 import io.smallrye.mutiny.Uni;
 import org.garrsolutions.model.Nation;
-import org.garrsolutions.repository.NationRepository;
+import org.garrsolutions.service.NationService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
@@ -18,31 +17,27 @@ import java.util.UUID;
 @ApplicationScoped
 public class NationResource {
 
-    private final NationRepository nationRepository;
+    private final NationService nationService;
 
-    public NationResource(NationRepository nationRepository) {
-        this.nationRepository = nationRepository;
+    public NationResource(NationService nationService) {
+        this.nationService = nationService;
     }
 
-    //@Transactional
+    @Transactional
     @POST
     @Path("save")
     public Uni<Nation> saveNation(Nation nation) {
-        return Panache.withTransaction(nation::persist);
-//        if (nationRepository.isPersistent(nation)) {
-//            System.out.println("Nation can be persisted:  " + nation);
-//        }
-//        return nationRepository.persist(nation);
+        return nationService.saveNation(nation);
     }
 
     @GET
     public Uni<List<Nation>> getNations() {
-        return nationRepository.listAll();
+        return nationService.getNations();
     }
 
     @GET
     @Path("{id}")
-    public Uni<Nation> getNation(@PathParam("id") UUID id) {
-        return nationRepository.findById(id);
+    public Uni<Nation> getNation(@PathParam("id") UUID nationId) {
+        return nationService.getNation(nationId);
     }
 }

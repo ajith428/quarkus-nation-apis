@@ -1,23 +1,51 @@
 package org.garrsolutions.model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Nation extends PanacheEntityBase {
 
     @Id
     @GeneratedValue
-    public UUID nationId;
+    private UUID nationId;
 
-    @Column
-    public String country;
+    @Column(unique = true)
+    private String country;
 
-    @OneToMany(mappedBy = "nation", cascade = {CascadeType.ALL})
-    public List<State> states = new ArrayList<>();
+    @OneToMany(mappedBy = "nation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ToString.Exclude
+    @Builder.Default
+    private List<State> states = new ArrayList<>();
 
+    public void addState() {
+        states.forEach(state -> {
+            state.setNation(this);
+            state.addDistrict();
+        });
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Nation nation)) return false;
+        return Objects.equals(getNationId(), nation.getNationId()) && Objects.equals(getCountry(), nation.getCountry()) && Objects.equals(getStates(), nation.getStates());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNationId(), getCountry(), getStates());
+    }
 }

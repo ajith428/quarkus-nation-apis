@@ -13,7 +13,7 @@ quarkus:
     username: ajith
     password: Aj!threddy428
     reactive:
-      url: vertx-reactive:postgresql://localhost:5432/garrsolutions
+      url: postgresql://localhost:5432/garrsolutions
       max-size: 20
   # drop and create the database at startup (use `update` to only update the schema)
   hibernate-orm:
