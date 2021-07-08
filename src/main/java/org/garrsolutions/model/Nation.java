@@ -25,7 +25,7 @@ public class Nation extends PanacheEntityBase {
     @Column(unique = true)
     private String country;
 
-    @OneToMany(mappedBy = "nation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "nation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @ToString.Exclude
     @Builder.Default
     private List<State> states = new ArrayList<>();

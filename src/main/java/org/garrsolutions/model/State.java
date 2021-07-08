@@ -26,11 +26,11 @@ public class State {
     private String stateName;
 
     @ManyToOne
-    @JoinColumn(name = "nationId", nullable = false)
+    @JoinColumn(name = "nation_id", nullable = false)
     @JsonIgnore
     private Nation nation;
 
-    @OneToMany(mappedBy = "state", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "state", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @Builder.Default
     @ToString.Exclude
     private List<District> districts = new ArrayList<>();

@@ -25,7 +25,7 @@ public class Village extends PanacheEntityBase {
     private String villageName;
 
     @ManyToOne
-    @JoinColumn(name = "districtId", nullable = false)
+    @JoinColumn(name = "district_id", nullable = false)
     @JsonIgnore
     private District district;
 
