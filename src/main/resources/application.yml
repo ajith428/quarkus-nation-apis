@@ -26,4 +26,4 @@ quarkus:
   quarkus:
     log:
       console:
-        json: false
+        json: true

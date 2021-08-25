@@ -2,6 +2,7 @@ package org.garrsolutions.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "stateId")
-public class State {
+public class State extends PanacheEntityBase {
 
     @Id
     @GeneratedValue
@@ -31,7 +32,7 @@ public class State {
     @JoinColumn(name = "nation_id", nullable = false)
     private Nation nation;
 
-    @OneToMany(mappedBy = "state", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "state", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @Builder.Default
     @ToString.Exclude
     private List<District> districts = new ArrayList<>();
@@ -46,8 +47,7 @@ public class State {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof State)) return false;
-        State state = (State) o;
+        if (!(o instanceof State state)) return false;
         return Objects.equals(getStateId(), state.getStateId()) && Objects.equals(getStateName(), state.getStateName()) && Objects.equals(getNation(), state.getNation());
     }
 

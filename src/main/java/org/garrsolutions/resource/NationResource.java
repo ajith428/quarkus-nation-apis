@@ -25,16 +25,17 @@ public class NationResource {
 
     @Transactional
     @POST
-    @Path("save")
     public Uni<Nation> saveNation(Nation nation) {
         return nationService.saveNation(nation);
     }
 
+    @Transactional
     @GET
     public Uni<List<Nation>> getNations() {
         return nationService.getNations();
     }
 
+    @Transactional
     @GET
     @Path("{id}")
     public Uni<Nation> getNation(@PathParam("id") UUID nationId) {

@@ -32,7 +32,7 @@ public class District extends PanacheEntityBase {
     @JoinColumn(name = "state_id", nullable = false)
     private State state;
 
-    @OneToMany(mappedBy = "district", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "district", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Village> villages = new ArrayList<>();
 
