@@ -25,7 +25,7 @@ public class Nation extends PanacheEntityBase {
     @GeneratedValue
     private UUID nationId;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String country;
 
     @OneToMany(mappedBy = "nation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)

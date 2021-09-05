@@ -6,14 +6,14 @@ quarkus:
       json:
         pretty-print: true
         date-format: "YYYY-MM-dd HH:mm:ss"
-        exception-output-type: "detailed-and-formatted"
+        exception-output-type: "DETAILED_AND_FORMATTED"
   # configure your datasource
   datasource:
     db-kind: postgresql
     username: ajith
     password: Aj!threddy428
     reactive:
-      url: postgresql://localhost:5432/garrsolutions
+      url: vertx-reactive:postgresql://localhost:5432/garrsolutions
       max-size: 20
   # drop and create the database at startup (use `update` to only update the schema)
   hibernate-orm:
